@@ -14,7 +14,7 @@ namespace :unicorn do
   task :start do
     on roles(fetch(:unicorn_roles)) do
       within release_path do
-        with rails_env: fetch(:rails_env) do
+        with rails_env: fetch(:rails_env), bundle_gemfile: "#{current_path}/Gemfile" do
           if test("[ -e #{fetch(:unicorn_pid)} ] && kill -0 #{pid}")
             info "unicorn is running..."
           else
